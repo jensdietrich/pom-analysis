@@ -10,7 +10,8 @@ public class AnalysePoms {
 
     public static void main(String[] args) throws Exception {
 
-        File sourceFolder = new File("poms-with-shade-plugins");
+        if (args.length<1) throw new IllegalArgumentException("One argument required - the path to input folder");
+        File sourceFolder = new File(args[0]);
 
         System.out.println("analysing all poms using shade plugin: " + Utils.countFilteredPoms(sourceFolder, f -> true));
         System.out.println("poms with staging plugin: " + Utils.countFilteredPoms(sourceFolder, Filters.USES_STAGING_PLUGIN));

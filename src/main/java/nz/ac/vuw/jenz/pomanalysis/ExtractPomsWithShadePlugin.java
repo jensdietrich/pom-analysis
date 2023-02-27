@@ -14,8 +14,9 @@ public class ExtractPomsWithShadePlugin {
 
     public static void main(String[] args) throws Exception {
 
-        File sourceFolder = new File("poms");
-        File targetFolder = new File("poms-with-shade-plugins");
+        if (args.length<2) throw new IllegalArgumentException("Two arguments required - the path to input and output folders");
+        File sourceFolder = new File(args[0]);
+        File targetFolder = new File(args[1]);
 
         List<File> poms = Files.walk(sourceFolder.toPath())
             .map(p -> p.toFile())
