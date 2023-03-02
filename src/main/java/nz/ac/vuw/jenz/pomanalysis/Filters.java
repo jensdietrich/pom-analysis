@@ -16,6 +16,7 @@ public class Filters {
     static Predicate<File> USES_STAGING_PLUGIN = new FilterXMLDocumentWithXPath("//plugin/artifactId[text() = 'nexus-staging-maven-plugin']");
     static Predicate<File> HAS_MODULES = new FilterXMLDocumentWithXPath("/project/modules");
     static Predicate<File> HAS_PARENT = new FilterXMLDocumentWithXPath("/project/parent");
+    static Predicate<File> IS_VALID_XML = new FilterXMLDocumentWithXPath("//*");
 
 
     // filter based on whether an element described by xpath exists
@@ -37,7 +38,7 @@ public class Filters {
                 NodeList nodeList = (NodeList) xPathExpression.evaluate(dom, XPathConstants.NODESET);
                 return nodeList.getLength()>0;
             } catch (Exception x) {
-                System.err.println("\tinvalid pom (parser exception): " + file.toString());
+                // System.err.println("\tinvalid pom (parser exception): " + file.toString());
                 // x.printStackTrace();
                 return false;
             }

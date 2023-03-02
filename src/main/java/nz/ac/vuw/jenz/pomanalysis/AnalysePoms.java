@@ -13,12 +13,21 @@ public class AnalysePoms {
         if (args.length<1) throw new IllegalArgumentException("One argument required - the path to input folder");
         File sourceFolder = new File(args[0]);
 
-        System.out.println("analysing all poms using shade plugin: " + Utils.countFilteredPoms(sourceFolder, f -> true));
-        System.out.println("poms with staging plugin: " + Utils.countFilteredPoms(sourceFolder, Filters.USES_STAGING_PLUGIN));
-        System.out.println("poms with modules: " + Utils.countFilteredPoms(sourceFolder, Filters.HAS_MODULES));
-        System.out.println("poms with parents: " + Utils.countFilteredPoms(sourceFolder, Filters.HAS_PARENT));
+        int totalPoms = Utils.countFilteredPoms(sourceFolder, f -> true);
+        int validPoms = Utils.countFilteredPoms(sourceFolder, Filters.IS_VALID_XML);
+        int usesStaging = Utils.countFilteredPoms(sourceFolder, Filters.USES_STAGING_PLUGIN);
+        int hasModules = Utils.countFilteredPoms(sourceFolder, Filters.HAS_MODULES);
+        int hasParents = Utils.countFilteredPoms(sourceFolder, Filters.HAS_PARENT);
+        int usesShading = Utils.countFilteredPoms(sourceFolder, Filters.USES_SHADE_PLUGIN);
 
-        Utils.filterPomsAndPrint(sourceFolder, Filters.USES_SHADE_PLUGIN);
+        System.out.println("analysing all poms: " + totalPoms );
+        System.out.println("Valid poms: " + validPoms);
+        System.out.println("poms with staging plugin: " + usesStaging);
+        System.out.println("poms with modules: " + hasModules);
+        System.out.println("poms with parents: " + hasParents);
+        System.out.println("poms with shading plugin: " + usesShading);
+
+
     }
 
 
